@@ -34,14 +34,15 @@ async function main (params) {
       }
     })
 
+    // Adobe I/O Runtime rejects invoke params that override action-bound defaults
+    // with "reserved properties" (400). DATABASE_URL is already bound on the
+    // worker via manifest.yml, so pass only request-specific params here.
     await invokeWorker(WORKER_ACTION, {
       session_id: sessionId,
       wf_url: body.wf_url,
       api_key: body.api_key,
       date_filter_years: body.date_filter_years || null,
-      fusion_scenarios: body.fusion_scenarios || 0,
-      // Pass DB connection so the worker can reach Postgres when running in OW
-      DATABASE_URL: params.DATABASE_URL || process.env.DATABASE_URL
+      fusion_scenarios: body.fusion_scenarios || 0
     })
 
     return ok({
