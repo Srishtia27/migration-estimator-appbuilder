@@ -4,6 +4,7 @@ node_modules/
 dist/
 build/
 .aio
+.aws.tmp.creds.json
 .parcel-cache/
 .DS_Store
 *.log

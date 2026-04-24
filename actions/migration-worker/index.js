@@ -5,6 +5,7 @@ const { WorkfrontClient, fetchObjectCounts, normalizeWorkfrontBaseUrl } = requir
 const { computeFullEstimate } = require('../common/estimator')
 
 async function main (params) {
+  if (params.DATABASE_URL) process.env.DATABASE_URL = params.DATABASE_URL
   const { session_id: sessionId, wf_url: wfUrl, api_key: apiKey, date_filter_years: dateFilterYears, fusion_scenarios: fusionScenarios = 0 } = params
   const prisma = getPrisma()
   const activity = await prisma.activity.findFirst({ where: { sessionId } })

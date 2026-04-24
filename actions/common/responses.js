@@ -1,8 +1,8 @@
+// Adobe I/O Runtime's gateway injects CORS headers for web actions automatically.
+// Adding our own produced duplicate `access-control-allow-origin: *,*` which
+// browsers reject, so we only set Content-Type here.
 const DEFAULT_HEADERS = {
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+  'Content-Type': 'application/json'
 }
 
 function json (statusCode, body) {

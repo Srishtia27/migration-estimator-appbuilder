@@ -1,0 +1,91 @@
+packages:
+  migration-estimator:
+    license: Apache-2.0
+    actions:
+      api:
+        function: dist/application/actions/migration-estimator/api.zip
+        web: 'yes'
+        runtime: nodejs:20
+        limits:
+          timeout: 120000
+        inputs:
+          JWT_SECRET_KEY: $JWT_SECRET_KEY
+          JWT_EXPIRE_MINUTES: $JWT_EXPIRE_MINUTES
+          DATABASE_URL: $DATABASE_URL
+        annotations:
+          require-adobe-auth: false
+          final: true
+      auth:
+        function: dist/application/actions/migration-estimator/auth.zip
+        web: 'yes'
+        runtime: nodejs:20
+        inputs:
+          JWT_SECRET_KEY: $JWT_SECRET_KEY
+          JWT_EXPIRE_MINUTES: $JWT_EXPIRE_MINUTES
+          DATABASE_URL: $DATABASE_URL
+        annotations:
+          require-adobe-auth: false
+          final: true
+      migration-estimate:
+        function: dist/application/actions/migration-estimator/migration-estimate.zip
+        web: 'yes'
+        runtime: nodejs:20
+        inputs:
+          JWT_SECRET_KEY: $JWT_SECRET_KEY
+          JWT_EXPIRE_MINUTES: $JWT_EXPIRE_MINUTES
+          DATABASE_URL: $DATABASE_URL
+        annotations:
+          require-adobe-auth: false
+          final: true
+      staffing:
+        function: dist/application/actions/migration-estimator/staffing.zip
+        web: 'yes'
+        runtime: nodejs:20
+        inputs:
+          JWT_SECRET_KEY: $JWT_SECRET_KEY
+          JWT_EXPIRE_MINUTES: $JWT_EXPIRE_MINUTES
+          DATABASE_URL: $DATABASE_URL
+        annotations:
+          require-adobe-auth: false
+          final: true
+      migration-start:
+        function: dist/application/actions/migration-estimator/migration-start.zip
+        web: 'yes'
+        runtime: nodejs:20
+        inputs:
+          JWT_SECRET_KEY: $JWT_SECRET_KEY
+          JWT_EXPIRE_MINUTES: $JWT_EXPIRE_MINUTES
+          DATABASE_URL: $DATABASE_URL
+        annotations:
+          require-adobe-auth: false
+          final: true
+      migration-status:
+        function: dist/application/actions/migration-estimator/migration-status.zip
+        web: 'yes'
+        runtime: nodejs:20
+        inputs:
+          JWT_SECRET_KEY: $JWT_SECRET_KEY
+          DATABASE_URL: $DATABASE_URL
+        annotations:
+          require-adobe-auth: false
+          final: true
+      migration-results:
+        function: dist/application/actions/migration-estimator/migration-results.zip
+        web: 'yes'
+        runtime: nodejs:20
+        inputs:
+          JWT_SECRET_KEY: $JWT_SECRET_KEY
+          DATABASE_URL: $DATABASE_URL
+        annotations:
+          require-adobe-auth: false
+          final: true
+      migration-worker:
+        function: dist/application/actions/migration-estimator/migration-worker.zip
+        web: 'no'
+        runtime: nodejs:20
+        limits:
+          timeout: 600000
+        inputs:
+          DATABASE_URL: $DATABASE_URL
+        annotations:
+          final: true
