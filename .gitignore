@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.local
+dist/
+build/
+.aio
+.parcel-cache/
+.DS_Store
+*.log

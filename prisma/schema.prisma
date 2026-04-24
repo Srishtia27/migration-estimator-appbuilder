@@ -1,0 +1,82 @@
+// Mirrors app/models.py (SQLAlchemy) from the existing FastAPI repo.
+// Keep field names aligned so the React frontend can hit the new actions without shape changes.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  email          String    @unique
+  displayName    String    @map("display_name")
+  hashedPassword String    @map("hashed_password")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  isActive       Boolean   @default(true) @map("is_active")
+
+  activities Activity[]
+
+  @@map("users")
+}
+
+model Activity {
+  id                    Int      @id @default(autoincrement())
+  userId                Int      @map("user_id")
+  tool                  String
+  action                String
+  inputSummary          String?  @map("input_summary")
+  sessionId             String?  @map("session_id")
+  status                String   @default("started")
+  errorMessage          String?  @map("error_message")
+  resultSummary         String?  @map("result_summary")
+  wfUrl                 String?  @map("wf_url")
+  initialEstimatedHours Float?   @map("initial_estimated_hours")
+  estimatedHours        Float?   @map("estimated_hours")
+  questionnaireData     Json?    @map("questionnaire_data")
+  estimateData          Json?    @map("estimate_data")
+  staffingSnapshot      Json?    @map("staffing_snapshot")
+  createdAt             DateTime @default(now()) @map("created_at")
+
+  user          User           @relation(fields: [userId], references: [id])
+  staffingPlans StaffingPlan[]
+
+  @@index([userId])
+  @@index([sessionId])
+  @@map("activities")
+}
+
+model StaffingPlan {
+  id         Int      @id @default(autoincrement())
+  activityId Int      @map("activity_id")
+  totalWeeks Float?   @map("total_weeks")
+  totalCost  Float?   @map("total_cost")
+  timeline   String?
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  activity Activity       @relation(fields: [activityId], references: [id])
+  roles    StaffingRole[]
+
+  @@map("staffing_plans")
+}
+
+model StaffingRole {
+  id              Int    @id @default(autoincrement())
+  staffingPlanId  Int    @map("staffing_plan_id")
+  roleName        String @map("role_name")
+  categories      String?
+  hoursAllocated  Float? @map("hours_allocated")
+  headcount       Int    @default(1)
+  utilization     Float  @default(0.8)
+  durationWeeks   Float? @map("duration_weeks")
+  rate            Float?
+  cost            Float?
+
+  staffingPlan StaffingPlan @relation(fields: [staffingPlanId], references: [id], onDelete: Cascade)
+
+  @@map("staffing_roles")
+}

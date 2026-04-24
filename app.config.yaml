@@ -1,0 +1,102 @@
+application:
+  actions: actions
+  web: web-src
+  runtimeManifest:
+    packages:
+      migration-estimator:
+        license: Apache-2.0
+        actions:
+          auth:
+            function: actions/auth/index.js
+            web: 'yes'
+            runtime: nodejs:20
+            inputs:
+              LOG_LEVEL: debug
+              JWT_SECRET_KEY: $JWT_SECRET_KEY
+              JWT_EXPIRE_MINUTES: $JWT_EXPIRE_MINUTES
+              DATABASE_URL: $DATABASE_URL
+              ENV: $ENV
+            annotations:
+              require-adobe-auth: false
+              final: true
+
+          migration-estimate:
+            function: actions/migration-estimate/index.js
+            web: 'yes'
+            runtime: nodejs:20
+            inputs:
+              LOG_LEVEL: debug
+              JWT_SECRET_KEY: $JWT_SECRET_KEY
+              JWT_EXPIRE_MINUTES: $JWT_EXPIRE_MINUTES
+              DATABASE_URL: $DATABASE_URL
+              ENV: $ENV
+            annotations:
+              require-adobe-auth: false
+              final: true
+
+          staffing:
+            function: actions/staffing/index.js
+            web: 'yes'
+            runtime: nodejs:20
+            inputs:
+              LOG_LEVEL: debug
+              JWT_SECRET_KEY: $JWT_SECRET_KEY
+              JWT_EXPIRE_MINUTES: $JWT_EXPIRE_MINUTES
+              DATABASE_URL: $DATABASE_URL
+              ENV: $ENV
+            annotations:
+              require-adobe-auth: false
+              final: true
+
+          migration-start:
+            function: actions/migration-start/index.js
+            web: 'yes'
+            runtime: nodejs:20
+            inputs:
+              LOG_LEVEL: debug
+              JWT_SECRET_KEY: $JWT_SECRET_KEY
+              JWT_EXPIRE_MINUTES: $JWT_EXPIRE_MINUTES
+              DATABASE_URL: $DATABASE_URL
+              ENV: $ENV
+            annotations:
+              require-adobe-auth: false
+              final: true
+
+          migration-status:
+            function: actions/migration-status/index.js
+            web: 'yes'
+            runtime: nodejs:20
+            inputs:
+              LOG_LEVEL: debug
+              JWT_SECRET_KEY: $JWT_SECRET_KEY
+              DATABASE_URL: $DATABASE_URL
+              ENV: $ENV
+            annotations:
+              require-adobe-auth: false
+              final: true
+
+          migration-results:
+            function: actions/migration-results/index.js
+            web: 'yes'
+            runtime: nodejs:20
+            inputs:
+              LOG_LEVEL: debug
+              JWT_SECRET_KEY: $JWT_SECRET_KEY
+              DATABASE_URL: $DATABASE_URL
+              ENV: $ENV
+            annotations:
+              require-adobe-auth: false
+              final: true
+
+          migration-worker:
+            function: actions/migration-worker/index.js
+            web: 'no'
+            runtime: nodejs:20
+            limits:
+              timeout: 600000
+            inputs:
+              LOG_LEVEL: debug
+              DATABASE_URL: $DATABASE_URL
+              ENV: $ENV
+            annotations:
+              final: true

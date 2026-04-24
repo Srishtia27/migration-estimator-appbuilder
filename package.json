@@ -1,0 +1,31 @@
+{
+  "name": "migration-estimator-appbuilder",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Adobe App Builder port of the Migration Estimator (was FastAPI on Render)",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "seed": "node scripts/seed.js",
+    "dev": "aio app dev",
+    "deploy": "aio app deploy"
+  },
+  "dependencies": {
+    "@adobe/aio-sdk": "^6.0.0",
+    "@prisma/client": "^5.22.0",
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.5",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "openwhisk": "^3.21.8"
+  },
+  "devDependencies": {
+    "nock": "^14.0.13",
+    "prisma": "^5.22.0"
+  }
+}
